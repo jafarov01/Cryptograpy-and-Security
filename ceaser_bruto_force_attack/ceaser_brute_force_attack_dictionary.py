@@ -5,7 +5,7 @@ def chooseRandomWordFromDict(fileName):
     words = open(fileName)
 
     #choose the word (line) to be encrypted randomly
-    wordIndex = random.randint(0, 1276) #there are 370103 words in the file
+    wordIndex = random.randint(0, 370102) #there are 370103 words in the file
 
     for lineNum, line in enumerate(words):
         if (lineNum == wordIndex):
@@ -34,7 +34,7 @@ def bruteForceGuess(fileName, chiperText):
 
     #iterate over the indices of each letter of letters
     for key in range(len(letters)): # 0 - 25
-        guess = ''
+        guess = ""
         #iterate over each characters of the encrypted word
         for ch in chiperText:
             if ch in letters: #if the character is lowercase English word
@@ -45,15 +45,18 @@ def bruteForceGuess(fileName, chiperText):
             else:
                 guess = guess + ch
         #open the file
-        words = open(fileName)
+        words = open(fileName, "r")
         #search for the guessed word in the file
-        for line in enumerate(words):
-            word = line[1].strip()
-            if (guess == word):
-                print("Guessed word is \"", guess, "\". Key is ", key, ".")
-                return key
+        # for line in enumerate(words):
+        #     word = line[1].strip()
+        #     if (guess == word):
+        guess = guess + '\n'
+        if guess in words: #second way to seach
+            print("Guessed word is \"", guess, "\". Key is ", key, ".")
+            return key
         #close the file
         words.close()
+    return -1 #unseccesful
 
 #######################################################
 
